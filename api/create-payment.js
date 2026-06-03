@@ -1,7 +1,6 @@
 const { createMollieClient } = require('@mollie/api-client');
 
-const mollie = createMollieClient({ apiKey: process.env.MOLLIE_API_KEY });
-
+const mollie = createMollieClient({ apiKey: process.env.MOLLIE_API_KEY || 'test_3mmNfuShmE3HzgaUgnKAGeyNRnDeju' });
 module.exports = async (req, res) => {
   if (req.method !== 'POST') return res.status(405).end();
   const { email } = req.body;
