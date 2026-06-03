@@ -7,7 +7,7 @@ module.exports = async (req, res) => {
   const { email } = req.body;
   try {
     const payment = await mollie.payments.create({
-      amount: { currency: 'EUR', value: '4.99' },
+      amount: { currency: 'EUR', value: String(parseFloat('4.99').toFixed(2)) },
       description: 'Ebook 5000 Fournisseurs',
       redirectUrl: `${process.env.SITE_URL}/merci.html`,
       webhookUrl: `${process.env.SITE_URL}/api/webhook`,
@@ -15,6 +15,6 @@ module.exports = async (req, res) => {
     });
     res.json({ checkoutUrl: payment._links.checkout.href });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ error: err.message, details: JSON.stringify(err) });
   }
 };
