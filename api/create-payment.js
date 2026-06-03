@@ -13,7 +13,7 @@ module.exports = async (req, res) => {
       webhookUrl: `${process.env.SITE_URL}/api/webhook`,
       metadata: { email },
     });
-    res.json({ checkoutUrl: payment.getCheckoutUrl() });
+    res.json({ checkoutUrl: payment._links.checkout.href });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
